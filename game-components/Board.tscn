@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c5pnga6wfcq1a"]
+
+[ext_resource type="Script" uid="uid://b1pu21ev1w3ru" path="res://scripts/board.gd" id="1_tx6nw"]
+[ext_resource type="PackedScene" uid="uid://dqkpyr401h823" path="res://game-components/Column.tscn" id="2_nglv8"]
+
+[node name="Board" type="Node2D" unique_id=907200007]
+script = ExtResource("1_tx6nw")
+
+[node name="Column1" parent="." unique_id=1100901663 instance=ExtResource("2_nglv8")]
+position = Vector2(-192, 192)
+
+[node name="Column2" parent="." unique_id=1231658882 instance=ExtResource("2_nglv8")]
+position = Vector2(-128, 224)
+row = 8
+
+[node name="Column3" parent="." unique_id=1902506993 instance=ExtResource("2_nglv8")]
+position = Vector2(-64, 192)
+
+[node name="Column4" parent="." unique_id=1496577934 instance=ExtResource("2_nglv8")]
+position = Vector2(0, 224)
+row = 8
+
+[node name="Column5" parent="." unique_id=1221378430 instance=ExtResource("2_nglv8")]
+position = Vector2(64, 192)
+
+[node name="Column6" parent="." unique_id=707542925 instance=ExtResource("2_nglv8")]
+position = Vector2(128, 224)
+row = 8
+
+[node name="Column7" parent="." unique_id=1040978998 instance=ExtResource("2_nglv8")]
+position = Vector2(192, 192)

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dqkpyr401h823"]
+
+[ext_resource type="Script" uid="uid://bt0203piel2o3" path="res://scripts/column.gd" id="1_32laj"]
+[ext_resource type="PackedScene" uid="uid://ch8ey7enx5rbj" path="res://game-components/Tile.tscn" id="2_3pu73"]
+
+[node name="Column" type="Node2D" unique_id=1100901663]
+script = ExtResource("1_32laj")
+tile_scene = ExtResource("2_3pu73")
