@@ -34,5 +34,14 @@ func spawn_tile(n :int = 1) -> void:
 			add_child(new_tile)
 			new_tile.move_to(end_y)
 
+func collapse_column():
+	for i in len(stack):
+		stack[i].move_to(-(tile_height * i))
+
+func remove_tile(tile):
+	if tile not in stack: return
+	stack.remove_at(stack.find(tile))
+	tile.queue_free()
+
 func _on_tile_clicked(tile):
 	tile_clicked.emit(tile)
