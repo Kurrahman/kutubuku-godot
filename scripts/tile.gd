@@ -1,8 +1,10 @@
 extends Area2D
 
 signal tile_clicked()
+var letter
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.letter = Utils.random_letter()
 	pass
 
 

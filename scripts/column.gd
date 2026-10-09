@@ -4,6 +4,8 @@ extends Node2D
 @export var row: int = 7
 @export var tile_height: int = 64
 
+signal tile_clicked()
+
 var stack: Array[Area2D] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,8 +35,4 @@ func spawn_tile(n :int = 1) -> void:
 			new_tile.move_to(end_y)
 
 func _on_tile_clicked(tile):
-	var idx = stack.find(tile)
-	stack.remove_at(idx)
-	tile.queue_free()
-	for i in range(idx, len(stack)):
-		stack[i].move_to(-tile_height * i)
+	tile_clicked.emit(tile)

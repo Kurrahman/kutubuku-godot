@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.7", "Mobile")
 
 [autoload]
 
-SignalBus="*uid://bm68be3fvyrm4"
+Utils="*uid://blank2hgv3fhb"
 
 [display]
 
