@@ -4,6 +4,43 @@
 [ext_resource type="Script" uid="uid://ckmlk6kd0o437" path="res://scripts/tile.gd" id="1_ueedy"]
 [ext_resource type="FontFile" uid="uid://xsv5kaod5wnw" path="res://assets/fonts/CourierPrime-Bold.ttf" id="3_3njqm"]
 
+[sub_resource type="Animation" id="Animation_3njqm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2isxq"]
+resource_name = "shake"
+length = 0.12999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.001, 0.03, 0.07, 0.1, 0.13),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(32, 0), Vector2(0, 0), Vector2(-32, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ncocv"]
+_data = {
+&"RESET": SubResource("Animation_3njqm"),
+&"shake": SubResource("Animation_2isxq")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ogq8d"]
 size = Vector2(64, 64)
 
@@ -17,26 +54,31 @@ script = ExtResource("1_ueedy")
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_j13wd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1487591150]
-shape = SubResource("RectangleShape2D_ogq8d")
-
-[node name="Label" type="Label" parent="." unique_id=1819279132]
-anchors_preset = 8
+[node name="Label" type="Label" parent="Sprite" unique_id=1819279132]
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 28.0
+offset_left = -223.99997
+offset_top = -285.0
+offset_right = -32.0
+offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_3njqm")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 180
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1547637088]
+root_node = NodePath("../Sprite")
+libraries/ = SubResource("AnimationLibrary_ncocv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1487591150]
+shape = SubResource("RectangleShape2D_ogq8d")
 
 [node name="SearchArea" type="Area2D" parent="." unique_id=1098772503]
 

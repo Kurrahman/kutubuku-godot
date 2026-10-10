@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.7", "Mobile")
 [autoload]
 
 Utils="*uid://blank2hgv3fhb"
+Dict="*uid://cjfuyvl1qvwm3"
 
 [display]
 

@@ -22,6 +22,10 @@ func get_selected_word() -> String:
 		output += t.letter
 	return output
 
+func shake_selected_tiles():
+	for tile in self.selected_tiles:
+		tile.shake()
+
 func remove_tile(tile):
 	for column in self.columns:
 		column.remove_tile(tile)
@@ -47,20 +51,25 @@ func get_wait_duration():
 	return max_tile_in_column * 0.1
 
 func _on_tile_clicked(tile):
-	var last_tile = self.selected_tiles.back()
-	if last_tile == tile:
-		var duration = get_wait_duration()
-		for t in self.selected_tiles:
-			remove_tile(t)
-		collapse_board()
-		await get_tree().create_timer(duration).timeout
-		fill_board()
-		return
-		
-	if last_tile != null and not tile.is_selected:
-		if not last_tile.is_neighbor(tile):
+	if !self.selected_tiles.is_empty():
+		var last_tile = self.selected_tiles.back()
+		var word = get_selected_word()
+		if last_tile == tile:
+			if not Dict.word_lookup(word):
+				shake_selected_tiles()
+				return
+			var duration = get_wait_duration()
+			for t in self.selected_tiles:
+				remove_tile(t)
+			self.selected_tiles = []
+			collapse_board()
+			await get_tree().create_timer(duration).timeout
+			fill_board()
 			return
-	
+			
+		if last_tile != null and not tile.is_selected:
+			if not last_tile.is_neighbor(tile):
+				return
 	if (tile not in selected_tiles):
 		tile.select()
 		self.selected_tiles.append(tile)
