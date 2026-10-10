@@ -21,9 +21,9 @@ func word_lookup(word: String) -> bool:
 		var middle = (left + right) / 2
 		if (middle == left): break
 		if word < self.dictionary[middle]:
-			right = middle - 1
+			right = middle
 		elif word > self.dictionary[middle]:
-			left = middle + 1
+			left = middle
 		else: return true
 	return word == self.dictionary[left]
 	

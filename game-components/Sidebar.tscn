@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://damkepm57esnn"]
+
+[ext_resource type="Script" uid="uid://cvcdvhqwp33rn" path="res://scripts/score.gd" id="1_f2jtf"]
+[ext_resource type="FontFile" uid="uid://xsv5kaod5wnw" path="res://assets/fonts/CourierPrime-Bold.ttf" id="1_xoiwc"]
+[ext_resource type="FontFile" uid="uid://n5vv741o16jp" path="res://assets/fonts/CourierPrime-Regular.ttf" id="3_o5ujk"]
+
+[node name="Sidebar" type="VBoxContainer" unique_id=1289619566]
+offset_left = -144.0
+offset_top = -256.0
+offset_right = 148.0
+offset_bottom = 256.0
+script = ExtResource("1_f2jtf")
+
+[node name="Score" type="Label" parent="." unique_id=1474751347]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("1_xoiwc")
+theme_override_font_sizes/font_size = 45
+
+[node name="Button" type="Button" parent="." unique_id=1163351935]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_o5ujk")
+theme_override_font_sizes/font_size = 32
+text = "Shuffle"
+
+[connection signal="pressed" from="Button" to="." method="_on_shuffle_pressed"]

@@ -20,7 +20,7 @@ func init_column(row: int) -> void:
 	fill_column()
 
 func fill_column() -> void:
-	spawn_tile(self.row - len(stack))
+	spawn_tile(self.row - len(self.stack))
 
 func spawn_tile(n :int = 1) -> void:
 	if (len(stack) < self.row):
@@ -28,7 +28,7 @@ func spawn_tile(n :int = 1) -> void:
 			var start_y = -(tile_height * (self.row + i))
 			var end_y = -(tile_height * (len(stack)))
 			var new_tile = tile_scene.instantiate()
-			stack.append(new_tile)
+			self.stack.append(new_tile)
 			new_tile.position.y = start_y
 			new_tile.tile_clicked.connect(_on_tile_clicked)
 			add_child(new_tile)
@@ -36,12 +36,18 @@ func spawn_tile(n :int = 1) -> void:
 
 func collapse_column():
 	for i in len(stack):
-		stack[i].move_to(-(tile_height * i))
+		self.stack[i].move_to(-(tile_height * i))
 
 func remove_tile(tile):
 	if tile not in stack: return
-	stack.remove_at(stack.find(tile))
+	self.stack.remove_at(self.stack.find(tile))
 	tile.queue_free()
+
+func empty_column():
+	for i in range(len(self.stack)):
+		var tile = self.stack.pop_back()
+		tile.queue_free()
+		
 
 func _on_tile_clicked(tile):
 	tile_clicked.emit(tile)

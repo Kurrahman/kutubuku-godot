@@ -1,8 +1,18 @@
 [gd_scene format=3 uid="uid://dk1beeesexyy0"]
 
 [ext_resource type="PackedScene" uid="uid://c5pnga6wfcq1a" path="res://game-components/Board.tscn" id="1_ibkli"]
+[ext_resource type="PackedScene" uid="uid://damkepm57esnn" path="res://game-components/Sidebar.tscn" id="2_qbsmt"]
 
 [node name="Game" type="Node2D" unique_id=1896338393]
 
 [node name="Board" parent="." unique_id=907200007 instance=ExtResource("1_ibkli")]
 position = Vector2(832, 320)
+
+[node name="Sidebar" parent="." unique_id=1289619566 instance=ExtResource("2_qbsmt")]
+offset_left = 139.0
+offset_top = 55.0
+offset_right = 431.0
+offset_bottom = 567.0
+
+[connection signal="word_submitted" from="Board" to="Sidebar" method="_on_board_word_submitted"]
+[connection signal="shuffle" from="Sidebar" to="Board" method="_on_shuffle_pressed"]

@@ -1,5 +1,7 @@
 extends Node2D
 
+signal word_submitted(word)
+
 var columns = []
 var column_heights = [7,8,7,8,7,8,7]
 var selected_tiles = []
@@ -31,12 +33,20 @@ func remove_tile(tile):
 		column.remove_tile(tile)
 
 func fill_board():
-	for column in columns:
+	for column in self.columns:
 		column.fill_column()
 
 func collapse_board():
 	for column in self.columns:
 		column.collapse_column()
+
+func empty_board():
+	for column in self.columns:
+		column.empty_column()
+
+func reset_board():
+	empty_board()
+	fill_board()
 
 func get_wait_duration():
 	var max_tile_in_column = 0
@@ -50,31 +60,49 @@ func get_wait_duration():
 		if (n > max_tile_in_column): max_tile_in_column = n
 	return max_tile_in_column * 0.1
 
+func remove_submitted_word():
+	var duration = get_wait_duration()
+	for t in self.selected_tiles:
+		remove_tile(t)
+		self.selected_tiles = []
+		collapse_board()
+	await get_tree().create_timer(duration).timeout
+	fill_board()
+
+func unselect_all_tiles():
+	for t in self.selected_tiles:
+		t.unselect()
+	self.selected_tiles = []
+
+func submit_word():
+	var word = get_selected_word()
+	if not Dict.word_lookup(word):
+		shake_selected_tiles()
+		return
+	word_submitted.emit(word)
+	remove_submitted_word()
+
 func _on_tile_clicked(tile):
 	if !self.selected_tiles.is_empty():
+		# theres already selected tiles
 		var last_tile = self.selected_tiles.back()
-		var word = get_selected_word()
 		if last_tile == tile:
-			if not Dict.word_lookup(word):
-				shake_selected_tiles()
-				return
-			var duration = get_wait_duration()
-			for t in self.selected_tiles:
-				remove_tile(t)
-			self.selected_tiles = []
-			collapse_board()
-			await get_tree().create_timer(duration).timeout
-			fill_board()
+			# click on last tile
+			submit_word()
 			return
-			
-		if last_tile != null and not tile.is_selected:
-			if not last_tile.is_neighbor(tile):
-				return
+		elif not tile.is_selected and not last_tile.is_neighbor(tile):
+			unselect_all_tiles()
+			return
+				
 	if (tile not in selected_tiles):
 		tile.select()
 		self.selected_tiles.append(tile)
 	else:
-		var idx = self.selected_tiles.find(tile)
+		var idx = self.selected_tiles.find(tile) + 1
 		for i in range(len(self.selected_tiles) - idx):
 			self.selected_tiles[idx].unselect()
 			self.selected_tiles.remove_at(idx)
+
+
+func _on_shuffle_pressed() -> void:
+	reset_board()
